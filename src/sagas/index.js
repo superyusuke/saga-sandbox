@@ -9,7 +9,7 @@ function * incrementAsync () {
 
 function * doFetch () {
   try{
-    const data = yield call(fetch, 'https://www.reddit.com/r/politics.jso')
+    const data = yield call(fetch, 'https://www.reddit.com/r/politics.json')
     yield put({type: 'FETCH_SUCCEEDED', data})
   }catch(error){
     yield put({type: 'FETCH_ERROR', error})
