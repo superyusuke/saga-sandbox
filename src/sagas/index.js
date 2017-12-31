@@ -9,12 +9,11 @@ function * incrementAsync () {
 
 function * doFetch () {
   try{
-    const data = yield call(fetch, 'https://www.reddit.com/r/politics.json')
+    const data = yield call(fetch, 'https://www.reddit.com/r/politics')
     yield put({type: 'FETCH_SUCCEEDED', data})
   }catch(error){
     yield put({type: 'FETCH_ERROR', error})
   }
-
 }
 
 function * watchIncrementAsync () {
