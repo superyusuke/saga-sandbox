@@ -1,28 +1,33 @@
 import { delay } from 'redux-saga'
 import { put, call, takeEvery, all } from 'redux-saga/effects'
-import fetch from 'cross-fetch';
+import fetch from 'cross-fetch'
 
-function* incrementAsync() {
+function * incrementAsync () {
   yield delay(1000)
-  yield put({ type: 'INCREMENT' })
+  yield put({type: 'INCREMENT'})
 }
 
-function* doFetch() {
-  const data = yield call(fetch, 'https://www.reddit.com/r/politics.json');
-  yield put({ type: 'FETCH_SUCCEEDED', data })
+function * doFetch () {
+  try{
+    const data = yield call(fetch, 'https://www.reddit.com/r/politics.jso')
+    yield put({type: 'FETCH_SUCCEEDED', data})
+  }catch(error){
+    yield put({type: 'FETCH_ERROR', error})
+  }
+
 }
 
-function* watchIncrementAsync() {
+function * watchIncrementAsync () {
   yield takeEvery('INCREMENT_ASYNC', incrementAsync)
 }
 
-function* watchFetch() {
+function * watchFetch () {
   yield takeEvery('DO_FETCH', doFetch)
 }
 
-export default function* rootSaga() {
+export default function * rootSaga () {
   yield all([
     watchIncrementAsync(),
-    watchFetch()
+    watchFetch(),
   ])
 }

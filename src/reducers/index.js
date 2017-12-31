@@ -12,6 +12,9 @@ export default function counter(state = 0, action) {
     case 'FETCH_SUCCEEDED':
       console.log('nera', action.data.status);
       return action.data.status;
+    case 'FETCH_ERROR':
+      console.log('nera', action.error.message);
+      return state;
     default:
       return state;
   }
